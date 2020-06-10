@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Sheet</title>
+    <link rel="stylesheet" href="js/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="app" class="container-fluid">
+        <div class="row" >
+            <div class="col" v-for="item in data">
+                <div class="card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item[0]}}</h5>
+                      <p class="card-text"> {{item[1]}} </p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="api.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            data: null,
+            loading: true,
+            errored: false
+        },
+        mounted() {
+            axios
+                .get('https://sheets.googleapis.com/v4/spreadsheets/' + id + '/values/main!A:B?key=' + key)
+                .then(response => {
+                    this.data = response.data.values
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
+        }
+    })
+</script>
+
+
+</html>
