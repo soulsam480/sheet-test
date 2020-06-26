@@ -1,7 +1,14 @@
 <template>
   <div class="blog">
-    <p> {{this.$route.params.text}} </p>
-    {{id}}
+    <div class="col-3 p-1">
+      <div class="card">
+        <h5 class="card-header">{{ singleBlog[1] }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ singleBlog[2] }}</h5>
+          <p class="card-text">yo</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -10,20 +17,19 @@ import router from "../router";
 export default {
   name: "Blog",
   components: {},
-  props:[
-      'text',
-  ],
-  data: function() {
+  props: ["text"],
+  data: () => {
     return {
-      id: this.$route.params.id,
-      main: this.$route.params.text
+      id: this.$route.params.id
     };
   },
-  created(){
+  created() {},
+  computed: {
+    singleBlog() {
+      return this.$store.getters.singleBlog(this.id);
+    }
   }
 };
 </script>
 
-<style>
-</style>
-[]
+<style></style>
