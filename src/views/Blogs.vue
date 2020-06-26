@@ -10,7 +10,7 @@
           <p
             class="card-text"
           >yo</p>
-          <router-link :to="{path: '/blog/'+ item[0]  }" ><a class="btn btn-primary">Visit</a></router-link> 
+          <router-link :to="{path: '/blog/'+ item[0], }" ><a class="btn btn-primary ">Visit</a></router-link> 
         </div>
       </div>
       </div>
