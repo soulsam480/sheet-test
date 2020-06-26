@@ -9,7 +9,6 @@
             </router-link>
           <div class="card-body">
             <h5 class="card-title">{{ item[2] }}</h5>
-            <p class="card-text">yo</p>
            
           </div>
         </div>

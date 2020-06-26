@@ -1,14 +1,9 @@
 <template>
-  <div class="blog">
-    <div class="col-3 p-1">
-      <div class="card">
-        <h5 class="card-header">{{ singleBlog[1] }}</h5>
-        <div class="card-body">
-          <h5 class="card-title">{{ singleBlog[2] }}</h5>
-          <p class="card-text">yo</p>
-        </div>
-      </div>
-    </div>
+  <div class="container-fluid">
+    <h1 class="display-4"> {{singleBlog[1]}} </h1>
+    <p class="lead"> The id of this post is : {{singleBlog[0]}}
+</p>
+<div v-html="singleBlog[3]"> {{singleBlog[3]}}</div>
   </div>
 </template>
 
