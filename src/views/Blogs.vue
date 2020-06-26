@@ -23,7 +23,7 @@ export default {
   name: "Blogs",
   components: {},
   props: [],
-  data: () => {
+  data: function () {
     return {};
   },
   computed: {

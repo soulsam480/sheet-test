@@ -78,7 +78,7 @@
 export default {
   name: "Admin",
   props: [],
-  data: () => {
+  data: function () {
     return {
       a: "",
       b: "",

@@ -17,8 +17,8 @@ import router from "../router";
 export default {
   name: "Blog",
   components: {},
-  props: ["text"],
-  data: () => {
+  props: [],
+  data: function () {
     return {
       id: this.$route.params.id
     };
