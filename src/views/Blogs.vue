@@ -2,7 +2,7 @@
   <div class="blogs">
     <br />
     <div class="row">
-      <div class="col-3 p-1" v-for="item in giveData" :key="item[0]">
+      <div class="col-sm-3 p-1" v-for="item in giveData" :key="item[0]">
         <div class="card">
            <router-link :to="{ path: '/blog/' + item[0] }">
               <h5 class="card-header">{{ item[1] }}</h5>
