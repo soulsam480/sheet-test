@@ -1,4 +1,7 @@
 <template>
+
+  <h1 class="text-center">This is home</h1>
+
 </template>
 
 <script>

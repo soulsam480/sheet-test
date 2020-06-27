@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <h1 class="display-4">{{ singleBlog[1] }}</h1>
-    <p class="lead">The id of this post is : {{ singleBlog[0] }}</p>
-    <img :src="singleBlog[4]" class="img-fluid" alt="Responsive image" />
+<!--     <p class="lead">The id of this post is : {{ singleBlog[0] }}</p>
+ -->    <img :src="singleBlog[4]" class="img-fluid" alt="Responsive image" />
     <div v-html="singleBlog[3]">{{ singleBlog[3] }}</div>
   </div>
 </template>

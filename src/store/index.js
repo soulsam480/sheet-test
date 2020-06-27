@@ -8,7 +8,8 @@ const axios = require("axios").default;
 export default new Vuex.Store({
   state: {
     data: [],
-    auth: false
+    auth: false,
+    dark: false
   },
   mutations: {
     addData(state, response) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     cAuth(state) {
       state.auth = !state.auth;
+    },
+    cDark(state){
+      state.dark = !state.dark;
     }
   },
   actions: {
@@ -52,6 +56,9 @@ export default new Vuex.Store({
     },
     changeAuth(context) {
       context.commit("cAuth");
+    },
+    changeDark(context){
+      context.commit("cDark")
     }
   },
   getters: {
@@ -63,6 +70,9 @@ export default new Vuex.Store({
     },
     getAuth(state) {
       return state.auth;
+    },
+    getDark(state){
+      return state.dark;
     }
   }
 });

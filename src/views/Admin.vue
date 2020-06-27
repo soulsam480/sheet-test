@@ -80,7 +80,35 @@
       <br />
       <button class="btn btn-primary" @click="addData()">Commit Post</button>
       <br />
-      <br />
+      <br>
+      <div>
+        <h3 class="text-center">Update Post</h3>
+        <div class="row">
+          <div class="col-sm-4 p-1" v-for="item in editData" :key="item[0]">
+            <div class="card ">
+              <p class="card-header">
+                {{ item[1] }}
+              </p>
+              <div class="card-body p-1">
+             <div class="btn-group">
+                <button
+                  class="btn btn-info btn-sm "
+                  @click="editPost(item[0])"
+                >
+                  Edit
+                </button>
+                <button
+                  class="btn btn-success btn-sm "
+                  @click="updatePost(item[0])"
+                >
+                  Save
+                </button>
+             </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="beforelogin" v-else>
       <div class="form-group">
@@ -127,7 +155,7 @@ export default {
   },
   data: function() {
     return {
-      a: "",
+      a: 0,
       b: "",
       c: "",
       authId: "",
@@ -141,7 +169,8 @@ export default {
       editorOptions: {
         hideModeSwitch: true
       },
-      postBody: ""
+      postBody: "",
+      editData: []
     };
   },
   computed: {
@@ -150,6 +179,47 @@ export default {
     }
   },
   methods: {
+    updatePost(id) {
+      var nId = id + 2;
+      var range = `${"main!A" + nId + ":E"}`;
+      console.log(range);
+      var majorDimension = "ROWS";
+      this.postBody = this.$refs.toastuiEditor.invoke("getHtml");
+      var values = [[this.a, this.b, this.c, this.postBody, this.picture]];
+      var body = {
+        range: range,
+        majorDimension: majorDimension,
+        values: values
+      };
+      this.$gapi.getGapiClient().then(gapi => {
+        gapi.client.sheets.spreadsheets.values
+          .update({
+            spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk",
+            range: range,
+            valueInputOption: "RAW",
+            resource: body
+          })
+          .then(response => {
+            var result = response.result;
+            console.log(`${result.updatedCells} cells updated.`);
+            this.a++;
+            this.b = "";
+            this.c = "";
+            this.postBody = "";
+            this.picture = null;
+            this.imageData = null;
+          });
+      });
+    },
+    editPost(id) {
+      console.log("working");
+      this.a = this.editData[id][0];
+      this.b = this.editData[id][1];
+      this.c = this.editData[id][2];
+      this.picture = this.editData[id][4];
+      this.$refs.toastuiEditor.invoke("setHtml", `${this.editData[id][3]}`);
+      console.log(this.$refs.toastuiEditor.invoke("getHtml"));
+    },
     previewImage(event) {
       this.uploadValue = 0;
       this.picture = null;
@@ -200,8 +270,6 @@ export default {
       if (this.$gapi.isAuthenticated() !== true) {
         this.$gapi.login().then(
           this.$gapi.getGapiClient().then(gapi => {
-            // gapi.sheets.spreadsheet.get(...)
-            // ...
             gapi.client.sheets.spreadsheets.values
               .append({
                 spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk",
@@ -218,7 +286,7 @@ export default {
                 this.c = "";
                 this.postBody = "";
                 this.picture = null;
-                thid.imageData = null;
+                this.imageData = null;
               });
           })
         );
@@ -243,7 +311,7 @@ export default {
               this.c = "";
               this.postBody = "";
               this.picture = null;
-              this.imageData = null
+              this.imageData = null;
             });
         });
       }
@@ -258,8 +326,16 @@ export default {
         })
         .then(response => {
           var result = response.result.values;
-          this.a = result[result.length - 1][0];
-          this.a++;
+          if (result === undefined) {
+            this.a = 0;
+            console.log(this.a);
+          } else {
+            this.a = result[result.length - 1][0];
+            this.a++;
+            console.log(this.a);
+            this.editData = result;
+            console.log(this.editData);
+          }
         });
     });
   }
