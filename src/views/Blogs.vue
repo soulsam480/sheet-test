@@ -3,15 +3,15 @@
     <br />
     <div class="row">
       <div class="col-sm-3 p-1" v-for="item in giveData" :key="item[0]">
-        <div class="card">
-           <router-link :to="{ path: '/blog/' + item[0] }">
-              <h5 class="card-header">{{ item[1] }}</h5>
-            </router-link>
-          <div class="card-body">
-            <h5 class="card-title">{{ item[2] }}</h5>
-           
-          </div>
-        </div>
+        <router-link :to="{ path: '/blog/' + item[0] }">
+          <div class="card " >
+<!--             @mouseover="hover = true" @mouseleave="hover = false" :class="{ shadow : hover }" 
+ -->            <h5 class="card-header">{{ item[1] }}</h5>
+            <div class="card-body">
+              <h5 class="card-title">{{ item[2] }}</h5>
+            </div>
+          </div></router-link
+        >
       </div>
     </div>
   </div>
@@ -22,8 +22,9 @@ export default {
   name: "Blogs",
   components: {},
   props: [],
-  data: function () {
-    return {};
+  data: function() {
+    return {
+    };
   },
   computed: {
     giveData() {
@@ -33,4 +34,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+}
+.card:hover{
+  box-shadow: 0 0  20px 0px rgba(0, 0, 0, 0.452);
+}
+</style>

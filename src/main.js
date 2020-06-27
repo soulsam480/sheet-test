@@ -5,7 +5,8 @@ import router from "./router";
 import Vuex from "vuex";
 import store from "./store";
 import VueGAPI from "vue-gapi";
-
+import firebase from "firebase";
+import "firebase/storage";
 Vue.use(Vuex);
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,10 +17,17 @@ const apiConfig = {
     "176219075281-91im132n5ua51g6oojlv7cs43gobprbs.apps.googleusercontent.com",
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
   scope: "https://www.googleapis.com/auth/spreadsheets",
-
   refreshToken: true
 };
-
+firebase.initializeApp({
+  apiKey: "AIzaSyCUJYkjqhz3ZQdPddJFqfkotwaLnx9gD0s",
+  authDomain: "sheet-test-4965a.firebaseapp.com",
+  databaseURL: "https://sheet-test-4965a.firebaseio.com",
+  projectId: "sheet-test-4965a",
+  storageBucket: "sheet-test-4965a.appspot.com",
+  messagingSenderId: "852067917099",
+  appId: "1:852067917099:web:30cfdbfe4881e5a32af96e"
+});
 Vue.use(VueGAPI, apiConfig);
 Vue.config.productionTip = false;
 

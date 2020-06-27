@@ -24,7 +24,7 @@ export default new Vuex.Store({
         .get(
           "https://sheets.googleapis.com/v4/spreadsheets/" +
             "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk" +
-            "/values/main!A2:D?key=" +
+            "/values/main!A2:E?key=" +
             "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms"
         )
         .then(response => {

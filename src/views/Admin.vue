@@ -1,20 +1,27 @@
 <template>
-  <div class="admin">
+  <div class="admin p-2">
     <div id="afterlogin" v-if="getAuth">
-      <button class="btn btn-danger " @click="Logout()">Logout</button>
+      <h5>
+        Admin : <b class="text-info">{{ mainId }}</b>
+        <button class="btn btn-danger float-right " @click="Logout()">
+          Admin Logout
+        </button>
+      </h5>
+      <br />
+      <h3 class="text-center">Add a Post</h3>
       <form>
-        <div class="form-group">
-          <label for="inputId">Post ID</label>
+        <!--  <div class="form-group">
+          <label for="inputId"> <b>Post ID</b> </label>
           <input
             v-model="a"
             type="text"
             class="form-control"
             id="inputId"
-            placeholder="Enter ID. This has to be unique integer following previous post IDs."
+            placeholder="Enter ID. This has to be an unique integer following exactly previous post ID."
           />
-        </div>
+        </div> -->
         <div class="form-group">
-          <label for="">Post Title</label>
+          <label for=""> <b> Post Title</b></label>
           <input
             v-model="b"
             type="text"
@@ -24,7 +31,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="inputDesc">Post Description</label>
+          <label for="inputDesc"> <b>Post Description</b> </label>
           <input
             v-model="c"
             type="text"
@@ -33,7 +40,31 @@
             placeholder="Input Post Description. Limit 20 words."
           />
         </div>
+        <div class="form-group">
+          <label for="Image"> <b> Post Cover Image</b></label>
+
+          <input
+            type="file"
+            class="form-control-file"
+            @change="previewImage"
+            accept="image/*"
+            id="Image"
+          />
+          <br />
+          <p>
+            {{ uploadValue.toFixed() + "%" }}
+            <progress id="progress" :value="uploadValue" max="100"></progress>
+          </p>
+          <button
+            class="btn btn-primary"
+            :disabled="!imageData"
+            @click="onUpload()"
+          >
+            Upload Image
+          </button>
+        </div>
       </form>
+      <label for="postContent"> <b>Post Content</b> </label>
       <editor
         ref="toastuiEditor"
         :initialValue="editorText"
@@ -42,8 +73,14 @@
         initialEditType="wysiwyg"
         previewStyle="vertical"
         v-on:keyup.enter="addData()"
+        id="postContent"
       ></editor>
-      <button class="btn btn-primary" @click="addData()">Editor Data</button>
+      <br />
+
+      <br />
+      <button class="btn btn-primary" @click="addData()">Commit Post</button>
+      <br />
+      <br />
     </div>
     <div id="beforelogin" v-else>
       <div class="form-group">
@@ -79,7 +116,7 @@
 <script>
 import "codemirror/lib/codemirror.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
-
+import firebase from "firebase";
 import { Editor } from "@toast-ui/vue-editor";
 
 export default {
@@ -97,11 +134,14 @@ export default {
       authPass: "",
       mainId: "sambit",
       mainPass: "QaWsEd",
-      editorText: "This is initialValue.",
+      imageData: null,
+      picture: null,
+      uploadValue: 0,
+      editorText: "Add post content here",
       editorOptions: {
         hideModeSwitch: true
       },
-      postBody:""
+      postBody: ""
     };
   },
   computed: {
@@ -110,6 +150,35 @@ export default {
     }
   },
   methods: {
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.picture = null;
+      this.imageData = event.target.files[0];
+    },
+
+    onUpload() {
+      this.picture = null;
+      const storageRef = firebase
+        .storage()
+        .ref(`${this.imageData.name}`)
+        .put(this.imageData);
+      storageRef.on(
+        `state_changed`,
+        snapshot => {
+          this.uploadValue =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        error => {
+          console.log(error.message);
+        },
+        () => {
+          this.uploadValue = 100;
+          storageRef.snapshot.ref.getDownloadURL().then(url => {
+            this.picture = url;
+          });
+        }
+      );
+    },
     Logout() {
       this.$store.dispatch("changeAuth");
     },
@@ -121,10 +190,10 @@ export default {
       }
     },
     addData() {
-      var range = "main!A2:D";
+      var range = "main!A2:E";
       var majorDimension = "ROWS";
-      this.postBody = this.$refs.toastuiEditor.invoke("getHtml")
-      var values = [[this.a, this.b, this.c, this.postBody]];
+      this.postBody = this.$refs.toastuiEditor.invoke("getHtml");
+      var values = [[this.a, this.b, this.c, this.postBody, this.picture]];
       var body = {
         values: values
       };
@@ -144,6 +213,12 @@ export default {
               .then(response => {
                 var result = response.result;
                 console.log(`${result.updatedCells} cells updated.`);
+                this.a++;
+                this.b = "";
+                this.c = "";
+                this.postBody = "";
+                this.picture = null;
+                thid.imageData = null;
               });
           })
         );
@@ -163,23 +238,30 @@ export default {
             .then(response => {
               var result = response.result;
               window.alert(`${result.updatedCells} cells updated.`);
+              this.a++;
+              this.b = "";
+              this.c = "";
+              this.postBody = "";
+              this.picture = null;
+              this.imageData = null
             });
         });
       }
     }
   },
-  async mounted() {
-    /* this.$gapi.getGapiClient().then(gapi => {
+  async created() {
+    this.$gapi.getGapiClient().then(gapi => {
       gapi.client.sheets.spreadsheets.values
         .get({
           spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk",
-          range: "A:C"
+          range: "A2:E"
         })
         .then(response => {
-          var result = response.result;
-        console.log(result)
+          var result = response.result.values;
+          this.a = result[result.length - 1][0];
+          this.a++;
         });
-    }); */
+    });
   }
 };
 </script>

@@ -35,7 +35,6 @@ export default {
   props: {},
   data: () => {
     return {
-      main: "jdjd"
     };
   }
 };
