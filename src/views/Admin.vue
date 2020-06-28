@@ -78,9 +78,11 @@
       <br />
 
       <br />
-      <button class="btn btn-primary" @click="addData()">Commit Post</button>
+      <button class="btn btn-primary" @click="addData()" :disabled="onPostEdit">
+        Commit Post
+      </button>
       <br />
-      <br>
+      <br />
       <div>
         <h3 class="text-center">Update Post</h3>
         <div class="row">
@@ -90,20 +92,20 @@
                 {{ item[1] }}
               </p>
               <div class="card-body p-1">
-             <div class="btn-group">
-                <button
-                  class="btn btn-info btn-sm "
-                  @click="editPost(item[0])"
-                >
-                  Edit
-                </button>
-                <button
-                  class="btn btn-success btn-sm "
-                  @click="updatePost(item[0])"
-                >
-                  Save
-                </button>
-             </div>
+                <div class="btn-group">
+                  <button
+                    class="btn btn-info btn-sm "
+                    @click="editPost(item[0])"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="btn btn-success btn-sm "
+                    @click="updatePost(item[0])"
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -170,7 +172,8 @@ export default {
         hideModeSwitch: true
       },
       postBody: "",
-      editData: []
+      editData: [],
+      onPostEdit: false
     };
   },
   computed: {
@@ -180,9 +183,8 @@ export default {
   },
   methods: {
     updatePost(id) {
-      var nId = id + 2;
-      var range = `${"main!A" + nId + ":E"}`;
-      console.log(range);
+      var Id = parseInt(id, 10) + 2;
+      var range = `${"main!A" + Id + ":E"}`;
       var majorDimension = "ROWS";
       this.postBody = this.$refs.toastuiEditor.invoke("getHtml");
       var values = [[this.a, this.b, this.c, this.postBody, this.picture]];
@@ -201,24 +203,41 @@ export default {
           })
           .then(response => {
             var result = response.result;
-            console.log(`${result.updatedCells} cells updated.`);
+            window.alert(`${result.updatedRange} is updated !`);
             this.a++;
             this.b = "";
             this.c = "";
             this.postBody = "";
             this.picture = null;
             this.imageData = null;
+            this.onPostEdit = false;
+            this.$gapi.getGapiClient().then(gapi => {
+              gapi.client.sheets.spreadsheets.values
+                .get({
+                  spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk",
+                  range: "A2:E"
+                })
+                .then(response => {
+                  var result = response.result.values;
+                  if (result === undefined) {
+                    this.a = 0;
+                  } else {
+                    this.a = result[result.length - 1][0];
+                    this.a++;
+                    this.editData = result;
+                  }
+                });
+            });
           });
       });
     },
     editPost(id) {
-      console.log("working");
-      this.a = this.editData[id][0];
+      this.onPostEdit = true;
+      this.a = parseInt(this.editData[id][0], 10);
       this.b = this.editData[id][1];
       this.c = this.editData[id][2];
       this.picture = this.editData[id][4];
       this.$refs.toastuiEditor.invoke("setHtml", `${this.editData[id][3]}`);
-      console.log(this.$refs.toastuiEditor.invoke("getHtml"));
     },
     previewImage(event) {
       this.uploadValue = 0;
@@ -280,7 +299,7 @@ export default {
               })
               .then(response => {
                 var result = response.result;
-                console.log(`${result.updatedCells} cells updated.`);
+               window.alert(`${result.updates.updatedRange} is added !`);
                 this.a++;
                 this.b = "";
                 this.c = "";
@@ -305,7 +324,7 @@ export default {
             })
             .then(response => {
               var result = response.result;
-              window.alert(`${result.updatedCells} cells updated.`);
+              window.alert(`${result.updates.updatedRange} is added !`);
               this.a++;
               this.b = "";
               this.c = "";
@@ -317,7 +336,7 @@ export default {
       }
     }
   },
-  async created() {
+  created() {
     this.$gapi.getGapiClient().then(gapi => {
       gapi.client.sheets.spreadsheets.values
         .get({
@@ -328,13 +347,10 @@ export default {
           var result = response.result.values;
           if (result === undefined) {
             this.a = 0;
-            console.log(this.a);
           } else {
             this.a = result[result.length - 1][0];
             this.a++;
-            console.log(this.a);
             this.editData = result;
-            console.log(this.editData);
           }
         });
     });

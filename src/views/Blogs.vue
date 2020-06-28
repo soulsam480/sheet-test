@@ -2,13 +2,13 @@
   <div class="blogs">
     <br />
     <div class="row">
-      <div class="col-sm-3 p-1" v-for="item in giveData" :key="item[0]">
+      <div class="col-sm-4 p-1" v-for="item in giveData" :key="item[0]">
         <router-link :to="{ path: '/blog/' + item[0] }">
           <div class="card " >
 <!--             @mouseover="hover = true" @mouseleave="hover = false" :class="{ shadow : hover }" 
  -->            <h5 class="card-header">{{ item[1] }}</h5>
             <div class="card-body">
-              <h5 class="card-title">{{ item[2] }}</h5>
+              <h5 class="card-text">{{ item[2] }}</h5>
             </div>
           </div></router-link
         >

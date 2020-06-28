@@ -5,7 +5,7 @@ import router from "./router";
 import Vuex from "vuex";
 import store from "./store";
 import VueGAPI from "vue-gapi";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/storage";
 Vue.use(Vuex);
 import "bootstrap";
