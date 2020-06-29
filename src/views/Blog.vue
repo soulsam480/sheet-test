@@ -1,17 +1,22 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <h1 class="display-4">{{ singleBlog[1] }}</h1>
 <!--     <p class="lead">The id of this post is : {{ singleBlog[0] }}</p>
  -->    <img :src="singleBlog[4]" class="img-fluid" alt="Responsive image" />
     <div v-html="singleBlog[3]">{{ singleBlog[3] }}</div>
+<!--   <Comment :id="this.id" />
+ -->    
   </div>
 </template>
 
 <script>
 import router from "../router";
-export default {
+/* import Comment from '@/components/Comment.vue'
+ */export default {
   name: "Blog",
-  components: {},
+  components: {
+  /*   Comment */
+  },
   props: [],
   data: function() {
     return {

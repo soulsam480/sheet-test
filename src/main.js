@@ -7,6 +7,7 @@ import store from "./store";
 import VueGAPI from "vue-gapi";
 import firebase from "firebase/app";
 import "firebase/storage";
+import "firebase/firebase-database";
 Vue.use(Vuex);
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,8 +16,8 @@ const apiConfig = {
   apiKey: "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms",
   clientId:
     "176219075281-91im132n5ua51g6oojlv7cs43gobprbs.apps.googleusercontent.com",
-  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-  scope: "https://www.googleapis.com/auth/spreadsheets",
+  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4","https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+  scope: "https://www.googleapis.com/auth/drive",
   refreshToken: true
 };
 firebase.initializeApp({

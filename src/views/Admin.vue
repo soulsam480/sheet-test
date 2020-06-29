@@ -147,7 +147,7 @@
 import "codemirror/lib/codemirror.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import firebase from "firebase";
-import { Editor } from "@toast-ui/vue-editor";
+ import { Editor } from "@toast-ui/vue-editor";
 
 export default {
   name: "Admin",
@@ -247,6 +247,21 @@ export default {
 
     onUpload() {
       this.picture = null;
+    /*   var media = {
+        mimeType: "image/png",
+        body: this.imageData
+      };
+      this.$gapi.getGapiClient().then(gapi => {
+        gapi.client.drive.files.create(
+          {
+            media: media,
+            fields: "id"
+          }
+        ).then( response=>{
+          console.log(response)
+        })
+      }); */
+
       const storageRef = firebase
         .storage()
         .ref(`${this.imageData.name}`)
@@ -299,7 +314,7 @@ export default {
               })
               .then(response => {
                 var result = response.result;
-               window.alert(`${result.updates.updatedRange} is added !`);
+                window.alert(`${result.updates.updatedRange} is added !`);
                 this.a++;
                 this.b = "";
                 this.c = "";
