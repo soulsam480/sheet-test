@@ -9,7 +9,7 @@ Using this starter you can build your own fully functional blog/portfolio and al
 1. Clone or Fork this repository.
 2. Go to google [Google Developers Console](https://console.developers.google.com) and create a new project. Go to credentials and create a new API key and a new OAuth Client ID. Don't forget to whitelist localhost:8080 and the deploy URL so that the app goes functional.
 2. Then go to [Firebase](https://console.firebase.google.com) and create a new peoject. Go to project settings, scroll to end and copy the firebase config for webapp.
-3. NO open your project on VSCode or any other text editor of your choice. Open main.js file. Then enter the configs for you firebase project.
+3. Now open your project on VSCode or any other text editor of your choice. Open main.js file. Then enter the configs for you firebase project.
 
 ```
 firebase.initializeApp({
@@ -100,8 +100,55 @@ this should push your code to github on a new branch gh:pages. If this code is n
 localhost:8080/#/admin
 
 ```
-2. The default ID and Password for the admin are "admin".
-3. To write data to the Google sheet you have to log in using OAuth2. SO when you will commit the first post it will ask for authorization. Log in with email whch has your google sheet.
+2. The default ID and Password for the admin are **admin**. 
+3. To change the admin password , change the mainId and mainPass properties to your desired ID and Password.
+```
+export default {
+  name: "Admin",
+  props: [],
+  components: {
+    editor: Editor
+  },
+  data: function() {
+    return {
+      a: 0,
+      b: "",
+      c: "",
+      authId: "",
+      authPass: "",
+      mainId: "sambit",
+      mainPass: "QaWsEd",
+      imageData: null,
+      picture: null,
+      uploadValue: 0,
+      editorText: "Add post content here",
+      editorOptions: {
+        hideModeSwitch: true
+      },
+      postBody: "",
+      editData: [],
+      onPostEdit: false
+    };
+  }
 
+  ```
+### Adding a new post
+1. To write data to the Google sheet you have to log in using OAuth2. SO when you will commit the first post it will ask for authorization. Log in with google email which has your google sheet else it will show error.
+2. To add images select te file using the HTML input button and upload.
+3. If you want to add images commit a post after you have uploaded the image. 
+
+### Editing Posts
+
+1. To edit a post, select the edit button from the Update post section in admin. Then change the data and click save on the same selected post.
+2. The post delete feature will be added in future.
+
+## All Features
+
+1. Simple Admin Panel with WYSIWYG Editor.
+2. Fast and reliable with google API and Firebase.
+3. Very small in size.
+4. Lazy-load images.
+5. Single Page Application for faster Performance.
+6. Deployment on github pages.
 
 
