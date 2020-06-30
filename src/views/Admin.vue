@@ -55,11 +55,9 @@
             {{ uploadValue.toFixed() + "%" }}
             <progress id="progress" :value="uploadValue" max="100"></progress>
           </p>
-          <button
-            class="btn btn-primary"
-            :disabled="!imageData"
-            @click="onUpload()"
-          >
+          <button class="btn btn-primary" @click="onUpload()">
+            <!--           :disabled="!imageData"
+ -->
             Upload Image
           </button>
         </div>
@@ -147,7 +145,7 @@
 import "codemirror/lib/codemirror.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import firebase from "firebase";
- import { Editor } from "@toast-ui/vue-editor";
+import { Editor } from "@toast-ui/vue-editor";
 
 export default {
   name: "Admin",
@@ -240,6 +238,7 @@ export default {
       this.$refs.toastuiEditor.invoke("setHtml", `${this.editData[id][3]}`);
     },
     previewImage(event) {
+      console.log(event);
       this.uploadValue = 0;
       this.picture = null;
       this.imageData = event.target.files[0];
@@ -247,20 +246,6 @@ export default {
 
     onUpload() {
       this.picture = null;
-    /*   var media = {
-        mimeType: "image/png",
-        body: this.imageData
-      };
-      this.$gapi.getGapiClient().then(gapi => {
-        gapi.client.drive.files.create(
-          {
-            media: media,
-            fields: "id"
-          }
-        ).then( response=>{
-          console.log(response)
-        })
-      }); */
 
       const storageRef = firebase
         .storage()
