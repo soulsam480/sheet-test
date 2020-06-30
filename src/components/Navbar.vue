@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg sticky-top" style="width:100%;">
-    <router-link to="/" class="navbar-brand">Sambit Sahoo</router-link>
+    <router-link to="/" class="navbar-brand">Sheet Test</router-link>
     <!--          <div class="darkone">
         <label class="switch">
           <input type="checkbox"  @click='darkMode'>

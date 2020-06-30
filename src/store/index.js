@@ -27,9 +27,9 @@ export default new Vuex.Store({
       axios
         .get(
           "https://sheets.googleapis.com/v4/spreadsheets/" +
-            "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk" + //your spreadsheet ID here
+            "Your Spreadsheet ID" + //Your Spreadsheet ID here
             "/values/main!A2:E?key=" +
-            "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms" //your API key here
+            "Your API Key" //Your API key here
         )
         .then(response => {
           var res = response.data.values;

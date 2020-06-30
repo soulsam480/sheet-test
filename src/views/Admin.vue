@@ -160,8 +160,8 @@ export default {
       c: "",
       authId: "",
       authPass: "",
-      mainId: "sambit", //change this for your own admin login ID
-      mainPass: "QaWsEd", //change this for yourn own admin login password
+      mainId: "admin", //change this for your own admin login ID
+      mainPass: "admin", //change this for yourn own admin login password
       imageData: null,
       picture: null,
       uploadValue: 0,
@@ -194,7 +194,7 @@ export default {
       this.$gapi.getGapiClient().then(gapi => {
         gapi.client.sheets.spreadsheets.values
           .update({
-            spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk", //your ID
+            spreadsheetId: "your spreadsheet ID", //your ID
             range: range,
             valueInputOption: "RAW",
             resource: body
@@ -212,7 +212,7 @@ export default {
             this.$gapi.getGapiClient().then(gapi => {
               gapi.client.sheets.spreadsheets.values
                 .get({
-                  spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk", //Your ID
+                  spreadsheetId: "your spreadsheet ID", //Your ID
                   range: "A2:E"
                 })
                 .then(response => {
@@ -291,7 +291,7 @@ export default {
           this.$gapi.getGapiClient().then(gapi => {
             gapi.client.sheets.spreadsheets.values
               .append({
-                spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk", //your ID
+                spreadsheetId: "your spreadsheet ID", //your ID
                 range: range,
                 valueInputOption: "RAW",
                 resource: body,
@@ -315,7 +315,7 @@ export default {
           // ...
           gapi.client.sheets.spreadsheets.values
             .append({
-              spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk", //Your ID
+              spreadsheetId: "your spreadsheet ID", //Your ID
               range: range,
               valueInputOption: "RAW",
               resource: body
@@ -340,7 +340,7 @@ export default {
     this.$gapi.getGapiClient().then(gapi => {
       gapi.client.sheets.spreadsheets.values
         .get({
-          spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk", //Your ID
+          spreadsheetId: "your spreadsheet ID", //Your ID
           range: "A2:E"
         })
         .then(response => {

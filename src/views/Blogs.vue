@@ -8,7 +8,7 @@
 <!--             @mouseover="hover = true" @mouseleave="hover = false" :class="{ shadow : hover }" 
  -->            <h5 class="card-header">{{ item[1] }}</h5>
             <div class="card-body">
-              <h5 class="card-text">{{ item[2] }}</h5>
+              <p class="card-text">{{ item[2] }}</p>
             </div>
           </div></router-link
         >

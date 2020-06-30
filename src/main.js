@@ -13,24 +13,22 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const apiConfig = {
-  //add your API key here from developer console
-  apiKey: "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms",
-  //your client ID from developer console/Oauth
-  clientId:
-    "176219075281-91im132n5ua51g6oojlv7cs43gobprbs.apps.googleusercontent.com",
-  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4","https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-  scope: "https://www.googleapis.com/auth/drive",
+  apiKey: "Your API Key",
+  // From google developers console
+  clientId: "Your Client ID",
+  // From google developers console OAuth
+  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+  scope: "https://www.googleapis.com/auth/sheets",
   refreshToken: true
 };
 firebase.initializeApp({
-  //your firebase webapp config from firebaseproject/settings/webapp
-  apiKey: "AIzaSyCUJYkjqhz3ZQdPddJFqfkotwaLnx9gD0s",
-  authDomain: "sheet-test-4965a.firebaseapp.com",
-  databaseURL: "https://sheet-test-4965a.firebaseio.com",
-  projectId: "sheet-test-4965a",
-  storageBucket: "sheet-test-4965a.appspot.com",
-  messagingSenderId: "852067917099",
-  appId: "1:852067917099:web:30cfdbfe4881e5a32af96e"
+  apiKey: "Your API Key",
+  authDomain: "Your Auth Domain",
+  databaseURL: "Your Database URL",
+  projectId: "Your Project ID",
+  storageBucket: "Your Storage Bucket",
+  messagingSenderId: "Messaging sender ID",
+  appId: "Your APP ID"
 });
 Vue.use(VueGAPI, apiConfig);
 Vue.config.productionTip = false;
