@@ -41,7 +41,7 @@ Now the setup is complete for reading and writing data to Sheets API and Firebas
 5. As we are using google sheets for ou Database lets go to [google Sheets](https://docs.google.com/sheets) and create a new document.  Open the Spreadsheet and name the current sheet "main".
 
 6. Copy the Sheet ID from the address bar. It will be something like this 
-https://docs.google.com/spreadsheets/d/**1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhi05UsIrk** . Select and copy the bold text.
+https://docs.google.com/spreadsheets/d/ **1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhi05UsIrk** . Select and copy the bold text.
 
 7. Go to src/store/index.js and in the actions method and add your API key and Spreadsheet ID.
 ```
@@ -116,8 +116,8 @@ export default {
       c: "",
       authId: "",
       authPass: "",
-      mainId: "sambit",
-      mainPass: "QaWsEd",
+      mainId: "admin",
+      mainPass: "admin",
       imageData: null,
       picture: null,
       uploadValue: 0,
