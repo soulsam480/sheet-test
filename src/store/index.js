@@ -27,9 +27,9 @@ export default new Vuex.Store({
       axios
         .get(
           "https://sheets.googleapis.com/v4/spreadsheets/" +
-            "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk" +
+            "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk" + //your spreadsheet ID here
             "/values/main!A2:E?key=" +
-            "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms"
+            "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms" //your API key here
         )
         .then(response => {
           var res = response.data.values;
@@ -39,20 +39,6 @@ export default new Vuex.Store({
           console.log(error);
           this.errored = true;
         });
-
-      /*  this.$getGapiClient().then(gapi => {
-          gapi.client.sheets.spreadsheets.values
-            .get({
-              spreadsheetId: "1GkfrnD4oaK-0v3BRnhQKopJb0sJt8p_MKMhH05UsIrk",
-              range: "A:C"
-            })
-            .then(response => {
-              var result = response.result;
-             var res = result.data.values;
-             context.commit('addData',res);
-            console.log(result);
-            });
-        }); */
     },
     changeAuth(context) {
       context.commit("cAuth");

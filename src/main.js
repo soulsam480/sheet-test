@@ -13,7 +13,9 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const apiConfig = {
+  //add your API key here from developer console
   apiKey: "AIzaSyDhfLBlkuRHQ4O_7MrPbaxpC8oW4XFeUms",
+  //your client ID from developer console/Oauth
   clientId:
     "176219075281-91im132n5ua51g6oojlv7cs43gobprbs.apps.googleusercontent.com",
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4","https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
@@ -21,6 +23,7 @@ const apiConfig = {
   refreshToken: true
 };
 firebase.initializeApp({
+  //your firebase webapp config from firebaseproject/settings/webapp
   apiKey: "AIzaSyCUJYkjqhz3ZQdPddJFqfkotwaLnx9gD0s",
   authDomain: "sheet-test-4965a.firebaseapp.com",
   databaseURL: "https://sheet-test-4965a.firebaseio.com",
