@@ -60,6 +60,9 @@ export default {
 .navbar-brand{
   color: black
 }
+.navbar{
+  background-color: #ebebeb;
+}
 .hamburger {
     display: block;
     float: right;
