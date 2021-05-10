@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@toast-ui/vue-editor": "^2.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
     "firebase": "^7.15.5",
